@@ -1,70 +1,120 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  TextInput,
+  View,
+  Pressable,
+  Text,
+  Alert,
+  Linking,
+} from "react-native";
+import React from "react";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function HomeScreen() {
+  const [textUsername, onChangeUsername] = React.useState("Username");
+  const [textMail, onChangeMail] = React.useState("E-Mail");
+  const [textPassword, onChangePassword] = React.useState("Password");
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: "#ebeaea", dark: "#d8a80a" }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require("@/assets/images/BG.jpg")}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText type="title">Register</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+
+      <View
+        style={{
+          flexDirection: "column",
+          paddingTop: 20,
+          paddingBottom: 20,
+          gap: 12,
+        }}
+      >
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeUsername}
+          value={textUsername}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeMail}
+          value={textMail}
+        />
+
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangePassword}
+          value={textPassword}
+        />
+        <Pressable
+          style={styles.btn}
+          onPress={() => Alert.alert("Simple Button pressed")}
+        >
+          <Text style={styles.text}>Register</Text>
+        </Pressable>
+
+        <Text
+          style={{ color: "black" }}
+          onPress={() => Linking.openURL("http://google.com")}
+        >
+          Do you have an account? Enter here
+        </Text>
+      </View>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+    justifyContent: "center",
   },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
+    height: 700,
+    width: 360,
+    top: 0,
     left: 0,
-    position: 'absolute',
+    bottom: 0,
+    position: "absolute",
+  },
+  input: {
+    height: 40,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 8,
+    borderColor: "#e8e8e8",
+    backgroundColor: "#f6f6f6",
+    color: "#bdbdbd",
+  },
+  btn: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 100,
+    elevation: 3,
+    backgroundColor: "#ff6c00",
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
 });
